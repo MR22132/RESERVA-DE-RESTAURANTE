@@ -5,6 +5,7 @@ Descripción
 Integrantes
 * Joselin Rosibel Aldana Aldana- AA13081
 * Diego Armando Mejía Rodríguez -MR22132
+  
 Cómo usar
 * Abrir PSeInt.
 * Cargar el archivo .psc.
