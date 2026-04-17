@@ -1,66 +1,116 @@
-Algoritmo Reserva_Restaurante
+Algoritmo Reserva_Restaurante2
 	
-	// Variables
-	Definir personas, capacidadMesa Como Entero
-	Definir mesa, turno Como Entero
-	Definir fecha Como Cadena
-	Definir disponible, capacidadValida Como Logico
+	// VARIABLES
+	Definir opcion, mesa, personas, turno Como Entero
+	Definir fecha, continuar Como Cadena
+	Definir capacidadValida Como Logico
+	Definir i Como Entero
 	
-	// Capacidad máxima por mesa
-	capacidadMesa <- 8 
+	Dimension mesas[15]
+	Definir mesas Como Logico
 	
-	// MOSTRAR MESAS DISPONIBLES
-	MostrarMesas(1)
+	// INICIALIZAR MESAS LIBRES
+	Para i <- 1 Hasta 15 Hacer
+		mesas[i] <- Verdadero
+	FinPara
 	
-	// Entrada de datos
-	Escribir "Ingrese numero de personas para hacer su reserva:"
-	Leer personas
-	
-	Escribir "Ingrese numero de mesa que desea (1 al 15):"
-	Leer mesa
-	
-	Escribir "Ingrese fecha en formato mm/dd/aaaa:"
-	Leer fecha
-	
-	Escribir "Ingrese el turno para la reserva:"
-	Escribir "1 para mañana"
-	Escribir "2 para tarde"
-	Escribir "3 para noche"
-	Leer turno
-	
-	// Llamar módulos
-	capacidadValida <- validarCapacidad(personas, capacidadMesa)
-	disponible <- validarDisponibilidad(mesa, fecha, turno)
-	
-	// Decisión final
-	Si capacidadValida Y disponible Entonces
-		Escribir "Reserva exitosa"
-	Sino
-		Escribir "No se puede realizar la reserva"
-	FinSi
+	Repetir
+		
+		Escribir "=================================="
+		Escribir "   SISTEMA DE RESERVACIONES"
+		Escribir "=================================="
+		Escribir "1. Hacer reservacion"
+		Escribir "2. Cancelar reservacion"
+		Escribir "3. Ver estado de mesas"
+		Escribir "4. Salir"
+		Escribir "Seleccione una opcion:"
+		Leer opcion
+		
+		Segun opcion Hacer
+			
+			1:
+				MostrarMesas(mesas)
+				
+				Escribir "Ingrese numero de personas:"
+				Leer personas
+				
+				Escribir "Ingrese numero de mesa (1-15):"
+				Leer mesa
+				
+				Escribir "Ingrese fecha:"
+				Leer fecha
+				
+				Escribir "Turno:"
+				Escribir "1. MaÃ±ana"
+				Escribir "2. Tarde"
+				Escribir "3. Noche"
+				Leer turno
+				
+				capacidadValida <- validarCapacidad(personas,8)
+				
+				Si capacidadValida Entonces
+					Si mesas[mesa] = Verdadero Entonces
+						mesas[mesa] <- Falso
+						Escribir "Reservacion exitosa en mesa ", mesa
+					Sino
+						Escribir "La mesa ya esta ocupada."
+					FinSi
+				Sino
+					Escribir "Capacidad excedida."
+				FinSi
+				
+			2:
+				MostrarMesas(mesas)
+				
+				Escribir "Ingrese numero de mesa a cancelar:"
+				Leer mesa
+				
+				Si mesas[mesa] = Falso Entonces
+					mesas[mesa] <- Verdadero
+					Escribir "Reservacion cancelada."
+				Sino
+					Escribir "Esa mesa ya esta libre."
+				FinSi
+				
+			3:
+				MostrarMesas(mesas)
+				
+			4:
+				Escribir "Gracias por usar el sistema."
+				
+			De Otro Modo:
+				Escribir "Opcion invalida."
+				
+		FinSegun
+		
+	Hasta Que opcion = 4
 	
 FinAlgoritmo
 
 
-// -------- MODULO PARA MOSTRAR MESAS --------
-SubProceso MostrarMesas(1)
+
+// MODULO MOSTRAR MESAS
+SubProceso MostrarMesas(mesas Por Referencia)
 	
 	Definir i Como Entero
 	
-	Escribir "==================================="
-	Escribir "     MESAS DISPONIBLES DEL DIA"
-	Escribir "==================================="
+	Escribir "========== ESTADO DE MESAS =========="
 	
-	Para i <- 1 Hasta 15 Con Paso 1 Hacer
-		Escribir "Mesa #", i
+	Para i <- 1 Hasta 15 Hacer
+		Si mesas[i] = Verdadero Entonces
+			Escribir "Mesa ", i, ": Disponible"
+		Sino
+			Escribir "Mesa ", i, ": Ocupada"
+		FinSi
 	FinPara
 	
-	Escribir "==================================="
+	Escribir "====================================="
 	
 FinSubProceso
 
 
-// -------- MODULO 1 --------
+
+// MODULO VALIDAR CAPACIDAD
 Funcion resultado <- validarCapacidad(personas, capacidadMesa)
 	
 	Definir resultado Como Logico
@@ -69,22 +119,6 @@ Funcion resultado <- validarCapacidad(personas, capacidadMesa)
 		resultado <- Verdadero
 	Sino
 		resultado <- Falso
-	FinSi
-	
-FinFuncion
-
-
-// -------- MODULO 2 --------
-Funcion resultado <- validarDisponibilidad(mesa, fecha, turno)
-	
-	Definir resultado Como Logico
-	
-	// Simulación:
-	// Si la mesa 1 en turno noche está ocupada
-	Si mesa = 1 Y turno = 3 Entonces
-		resultado <- Falso
-	Sino
-		resultado <- Verdadero
 	FinSi
 	
 FinFuncion
