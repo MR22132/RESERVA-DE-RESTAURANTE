@@ -10,3 +10,8 @@ Cómo usar
 * Abrir PSeInt.
 * Cargar el archivo .psc.
 * Ejecutar y seguir las opciones del menú.
+
+Lo que buscamos conseguir
+* 1.	Capacidad: Que el grupo de personas quepa en la mesa seleccionada.
+* 2.	Disponibilidad: Que la mesa no esté ocupada en una fecha específica.
+* 3.	Gestión de Turnos: Permitir que una misma mesa se use varias veces al día (Mañana, Tarde y Noche) sin que se traslapen las reservas
